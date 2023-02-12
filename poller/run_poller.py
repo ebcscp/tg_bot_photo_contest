@@ -35,6 +35,7 @@ def get_config():
         raw_config = yaml.safe_load(f)
 
     # return {"queue_name": raw_config["rabbitmq"]["queue_name"],
+    
     #         "rabbit_url": raw_config["rabbitmq"]["rabbit_url"],
     return {"bot_token": raw_config["bot"]["token"]}
 
