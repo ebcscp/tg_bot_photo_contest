@@ -4,10 +4,5 @@ database:
   user: admin
   password: 1111Aa
   database: kurs
-bot:
-  api_path: https://api.telegram.org/bot
-  token: 5629490839:AAG4EXFBeD1qevL8aIBuk0-vnxFmjh61yq4 
-rabbitmq:
-  queue_name:
-  rabbit_url: 
+
   

@@ -38,3 +38,14 @@ class Poller:
 
         await self.rmq_worker.stop()        
 
+
+
+def run_poller():
+    poller = Poller(token, config)
+
+    loop = asyncio.get_event_loop()
+    try:
+        loop.create_task(poller.start())
+        loop.run_forever()
+    except KeyboardInterrupt:
+        loop.run_until_complete(poller.stop())

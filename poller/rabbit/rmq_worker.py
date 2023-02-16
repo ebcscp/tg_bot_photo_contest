@@ -38,8 +38,6 @@ class WorkerRmq:
             json.dumps(data).encode()),
             routing_key=self.config.queue_name,
             )
-        
-        #raise NotImplementedError
 
     async def stop(self):
 
