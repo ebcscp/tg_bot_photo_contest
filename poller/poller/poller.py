@@ -3,7 +3,7 @@ from typing import Optional
 from poller.tg_api import TgClient
 
 from models import UpdateObj
-from run_poller import TokenPoller
+
 
 class Poller:
     def __init__(self, config: TokenPoller):
@@ -40,7 +40,7 @@ class Poller:
 
 
 
-def run_poller():
+def run_poller(config:str):
     poller = Poller(token, config)
 
     loop = asyncio.get_event_loop()

@@ -13,6 +13,7 @@ class RabbitConfig:
 @dataclass
 class TgConfig:
     token: str
+    api_path: str
 
 
 
