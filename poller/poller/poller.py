@@ -1,14 +1,15 @@
 import asyncio
 from typing import Optional
-from poller.tg_api import TgClient
-
-from models import UpdateObj
+# from poller.tg_api import TgClient
+from poller import Client, poller_config
+from poller.poller.models import UpdateObj
 
 
 class Poller:
-    def __init__(self, config: TokenPoller):
+    def __init__(self, client: Client):
         #self.rmq_worker = WorkerRmq(config = WorkerConfig)
-        self.tg_client = TgClient(config.token)
+        self.tg_client = client.tg_cli
+        self.rabbit_client = client.rabbit_cli
         self.is_running = True
         self._task: Optional[asyncio.Task] = None
 
@@ -16,11 +17,11 @@ class Poller:
         
         offset = 0
         while self.is_running:
-            updates = await self.tg_client.get_updates_in_objects(offset=offset, timeout=60)
+            updates = await self.tg_client.get_updates_in_objects(offset=offset, timeout=5)
             for update in updates:
                 offset = update.update_id + 1
                 data = UpdateObj.Schema().dump(update)
-                await self.rmq_worker.put(data)
+                await self.rabbit_client.put(data)
 
     async def start(self):
         
@@ -38,10 +39,13 @@ class Poller:
 
         await self.rmq_worker.stop()        
 
+def setup_config(config_path:str):
+    config =  poller_config(config_path=config_path)  
+    clients = Client(config)    
+    poller = Poller(clients)
+    return poller
 
-
-def run_poller(config:str):
-    poller = Poller(token, config)
+def run_poller(poller:Poller):
 
     loop = asyncio.get_event_loop()
     try:

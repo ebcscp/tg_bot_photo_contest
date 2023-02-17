@@ -1,6 +1,6 @@
-from poller import config
 from poller.dataclass_config import Config, RabbitConfig, TgConfig 
-import typing
+from poller.poller.tg_api import TgClient
+from poller.rabbit.rmq_worker import WorkerRmq
 import yaml
 
 def poller_config(config_path: str) -> Config:
@@ -17,3 +17,8 @@ def poller_config(config_path: str) -> Config:
             api_path=raw_config["bot"]["api_path"]
         )
     )       
+
+class Client:
+    def __init__(self, config_: Config):
+        self.tg_cli = TgClient(config_.tg.token, config_.tg.api_path)
+        self.rabbit_cli = WorkerRmq(config_.rabbit)

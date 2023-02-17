@@ -1,7 +1,7 @@
 from typing import Optional, List, Any
 
 from json import JSONDecodeError
-from app.tg.models import UpdateObj, Message, GetUpdatesResponse, GetFileResponse, SendMessageResponse
+from poller.poller.models import UpdateObj, Message, GetUpdatesResponse, GetFileResponse, SendMessageResponse
 import aiohttp
 from marshmallow.exceptions import ValidationError
 
@@ -10,13 +10,11 @@ class TgClientError(Exception):
     pass
 
 
-class TgClient:
-    
-    
-    def __init__(self, token: str = ''):
+class TgClient:    
+    def __init__(self, token: str = '', api_path: str =''):
         self.token = token
         self.session = aiohttp.ClientSession()
-
+        self.api_path = api_path    
     async def __aenter__(self):
         return self
 
@@ -32,7 +30,7 @@ class TgClient:
             raise TgClientError
 
     def get_path(self):
-        return f'{self.API_PATH}{self.token}'
+        return f'{self.api_path}{self.token}'
 
     async def get_me(self) -> dict:
         url = self.get_path() + '/getMe'
