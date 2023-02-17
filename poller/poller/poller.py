@@ -7,7 +7,6 @@ from poller.poller.models import UpdateObj
 
 class Poller:
     def __init__(self, client: Client):
-        #self.rmq_worker = WorkerRmq(config = WorkerConfig)
         self.tg_client = client.tg_cli
         self.rabbit_client = client.rabbit_cli
         self.is_running = True

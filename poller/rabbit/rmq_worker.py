@@ -24,7 +24,7 @@ class WorkerRmq:
 
     async def _setup(self):
         if self.conect_work:
-            return
+            return   
         self.connection = await connect(url= self.config.rabbit_url)
         self.channel = await self.connection.channel()
         await self.channel.declare_queue(self.config.queue_name)

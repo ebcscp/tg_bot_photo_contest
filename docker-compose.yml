@@ -11,5 +11,13 @@ services:
     ports:
       - 15672:15672
       - 5672:5672
-      
+    networks:
+      - my-bridge
 
+
+networks:
+  my-bridge:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.40.0/24

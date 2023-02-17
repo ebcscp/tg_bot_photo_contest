@@ -5,4 +5,4 @@ bot:
 rabbitmq:
   queue_name:  tg_bot
   exchange_name: bot_exchange
-  rabbit_url: amqp://rmuser:rmpassword@127.0.0.1:15672/
+  rabbit_url: amqp://rmuser:rmpassword@localhost:5672/
