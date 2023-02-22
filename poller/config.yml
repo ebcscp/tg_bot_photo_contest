@@ -1,6 +1,6 @@
 bot:
   api_path: https://api.telegram.org/bot
-  token: 5629490839:AAG4EXFBeD1qevL8aIBuk0-vnxFmjh61yq4 
+  token: 
   id:
 rabbitmq:
   queue_name:  tg_bot

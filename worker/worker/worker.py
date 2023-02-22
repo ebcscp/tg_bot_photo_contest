@@ -23,20 +23,11 @@ class Worker:
         self.queue = None
 
     async def handler(self, msg: aio_pika.IncomingMessage):
-        """
-        нужно переопределить метод базового класса Worker
-        он должен принимать сообщения из очереди, конвертировать их в объект UpdateObj
-        затем вызывать метод handle_update, в котором будет реализована бизнес-логика бота
-        """
         upd = UpdateObj.Schema().loads(msg.body)
         print(f'ТЕСТ  {upd}  ТЕСТ')
         #await self.handle_update(upd)
             
     async def _worker(self, msg: aio_pika.IncomingMessage):
-        """
-        нужно вызвать метод self.handler
-        если он завершился корректно, то подтвердить обработку сообщения (ack)
-        """
         async with msg.process():
             self.count_worker += 1
             try:
